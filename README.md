@@ -1,191 +1,579 @@
-Railway Reservation System (Java + JDBC + MySQL)
-A console-based Railway Reservation System built with plain Java (OOP), JDBC and MySQL, structured into model / dao / service / util / main packages. Suitable for a college-level Java project submission.
+# 🚆 Railway Reservation System
 
-1. Project Structure
+A **Java-based Railway Reservation System** designed to simplify train search, passenger management, seat reservation, booking cancellation, and PNR generation through a structured and modular application architecture.
+
+---
+
+## 📌 Project Overview
+
+The Railway Reservation System provides a digital platform for managing railway reservations.
+
+The system allows users to:
+
+* Register and log in
+* Search available trains
+* View train details
+* Check seat availability
+* Book tickets
+* Add passenger details
+* Generate PNR numbers
+* View booking details
+* Cancel bookings
+
+Administrators can manage trains, users, passengers, and bookings.
+
+The project follows a layered architecture using **Model, DAO, Service, Utility, and Main** packages to keep the application maintainable and scalable.
+
+---
+
+## 🎯 Objectives
+
+* Automate railway ticket reservation.
+* Reduce manual booking operations.
+* Provide real-time-style seat availability.
+* Maintain passenger and booking information.
+* Generate unique PNR numbers.
+* Provide secure user authentication.
+* Prevent invalid or duplicate bookings.
+* Maintain organized database records.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose                           |
+| ---------- | --------------------------------- |
+| Java       | Core application development      |
+| JDBC       | Database connectivity             |
+| MySQL      | Data storage                      |
+| Maven      | Dependency and project management |
+| SQL        | Database operations               |
+| Git/GitHub | Version control                   |
+
+---
+
+## 📂 Project Structure
+
+```text
 railway-reservation-system/
+│
 ├── pom.xml
 ├── README.md
+│
 ├── sql/
 │   └── schema.sql
-└── src/main/java/railway/
-    ├── model/
-    │   ├── User.java
-    │   ├── Admin.java
-    │   ├── Train.java
-    │   ├── Passenger.java
-    │   ├── Booking.java
-    │   └── Seat.java
-    ├── dao/
-    │   ├── UserDAO.java
-    │   ├── AdminDAO.java
-    │   ├── TrainDAO.java
-    │   ├── BookingDAO.java
-    │   └── PassengerDAO.java
-    ├── service/
-    │   ├── UserService.java
-    │   ├── TrainService.java
-    │   ├── BookingService.java
-    │   └── ServiceException.java
-    ├── util/
-    │   ├── DBConnection.java
-    │   ├── PNRGenerator.java
-    │   ├── InputValidator.java
-    │   └── PasswordUtil.java
+│
+└── src/
     └── main/
-        └── RailwayReservationSystem.java
-2. Requirements
-Java 17 or later (JDK, not just JRE)
-Maven 3.6+
-MySQL 8.x server running locally (or reachable over the network)
-3. Database Setup
-Start your MySQL server.
+        └── java/
+            └── railway/
+                │
+                ├── model/
+                │   ├── User.java
+                │   ├── Admin.java
+                │   ├── Train.java
+                │   ├── Passenger.java
+                │   ├── Booking.java
+                │   └── Seat.java
+                │
+                ├── dao/
+                │   ├── UserDAO.java
+                │   ├── AdminDAO.java
+                │   ├── TrainDAO.java
+                │   ├── BookingDAO.java
+                │   └── PassengerDAO.java
+                │
+                ├── service/
+                │   ├── UserService.java
+                │   ├── TrainService.java
+                │   ├── BookingService.java
+                │   └── ServiceException.java
+                │
+                ├── util/
+                │   ├── DBConnection.java
+                │   ├── PNRGenerator.java
+                │   ├── InputValidator.java
+                │   └── PasswordUtil.java
+                │
+                └── main/
+                    └── RailwayReservationSystem.java
+```
 
-Run the schema script, which drops/creates the railway_reservation database, all tables, and seeds sample trains plus a default admin:
+---
 
-mysql -u root -p < sql/schema.sql
-The default admin credentials seeded by the script are:
+# ✨ Features
 
-username: admin
-password: admin123
-4. Configure the Database Connection
-railway.util.DBConnection reads its connection settings from (in order of precedence) JVM system properties, then environment variables, then a built-in default:
+## 👤 User Management
 
-Setting	System property	Env variable	Default
-URL	db.url	DB_URL	jdbc:mysql://localhost:3306/railway_reservation?useSSL=false&serverTimezone=UTC
-Username	db.user	DB_USER	root
-Password	db.password	DB_PASSWORD	root
-Easiest options:
+Users can:
 
-Edit the defaults directly in DBConnection.java, or
-Pass system properties when running:
-mvn exec:java -Ddb.user=root -Ddb.password=yourpassword
-5. Build & Run
-Using Maven (recommended)
-# Compile
-mvn clean compile
+* Create an account
+* Log in securely
+* Update profile information
+* View booking history
+* View current bookings
 
-# Run directly (development)
+---
+
+## 🚆 Train Management
+
+The system provides train-related functionality such as:
+
+* Add train
+* Update train information
+* Remove train
+* Search trains
+* View train details
+* Check available seats
+
+---
+
+## 🎫 Ticket Booking
+
+Users can:
+
+1. Select source station.
+2. Select destination station.
+3. Search available trains.
+4. Select a train.
+5. Select journey date.
+6. Enter passenger details.
+7. Select available seats.
+8. Confirm booking.
+9. Generate a unique PNR.
+
+---
+
+## 🧑 Passenger Management
+
+Passenger information includes:
+
+* Passenger ID
+* Name
+* Age
+* Gender
+* Contact information
+* Seat number
+* Booking reference
+
+Multiple passengers can be associated with a single booking.
+
+---
+
+## 💺 Seat Management
+
+The system manages:
+
+* Available seats
+* Reserved seats
+* Seat numbers
+* Seat status
+* Seat allocation
+
+Example:
+
+```text
+Seat No.    Status
+----------------------
+S01         AVAILABLE
+S02         BOOKED
+S03         AVAILABLE
+S04         BOOKED
+```
+
+---
+
+## 🔖 PNR Generation
+
+Every successful booking receives a unique **PNR (Passenger Name Record)**.
+
+Example:
+
+```text
+PNR: RLY826451
+```
+
+The PNR can be used to:
+
+* View booking details
+* Check reservation status
+* Cancel tickets
+* Identify a booking
+
+---
+
+## ❌ Booking Cancellation
+
+Users can cancel existing bookings using their PNR.
+
+When a booking is cancelled:
+
+* Booking status changes to `CANCELLED`
+* Reserved seats become available
+* Booking history is updated
+
+---
+
+# 🔐 Security
+
+The application includes basic security mechanisms such as:
+
+* Password hashing
+* Input validation
+* User authentication
+* Admin authentication
+* Prepared SQL statements
+* Exception handling
+
+Passwords should **never be stored as plain text**.
+
+---
+
+# 🗄️ Database
+
+The project uses **MySQL** as the relational database.
+
+Main database entities include:
+
+```text
+User
+Admin
+Train
+Passenger
+Booking
+Seat
+```
+
+### Example Relationships
+
+```text
+USER
+  │
+  └── BOOKING
+          │
+          ├── PASSENGER
+          │
+          ├── TRAIN
+          │
+          └── SEAT
+```
+
+---
+
+# ⚙️ Requirements
+
+Before running the project, install:
+
+* Java JDK 17 or later
+* Maven
+* MySQL Server
+* MySQL Workbench (optional)
+* Git (optional)
+* IDE such as IntelliJ IDEA, Eclipse, or VS Code
+
+Verify Java:
+
+```bash
+java -version
+```
+
+Verify Maven:
+
+```bash
+mvn -version
+```
+
+---
+
+# 🚀 Installation
+
+## 1. Clone the Repository
+
+```bash
+git clone <your-repository-url>
+```
+
+Move into the project directory:
+
+```bash
+cd railway-reservation-system
+```
+
+---
+
+## 2. Create the Database
+
+Open MySQL and create the database:
+
+```sql
+CREATE DATABASE railway_reservation;
+```
+
+---
+
+## 3. Execute the SQL Schema
+
+Run:
+
+```text
+sql/schema.sql
+```
+
+This creates the required tables and constraints.
+
+---
+
+## 4. Configure Database Connection
+
+Update the database configuration in:
+
+```text
+DBConnection.java
+```
+
+Example:
+
+```java
+private static final String URL =
+        "jdbc:mysql://localhost:3306/railway_reservation";
+
+private static final String USER = "root";
+
+private static final String PASSWORD = "your_password";
+```
+
+Replace:
+
+```text
+your_password
+```
+
+with your MySQL password.
+
+---
+
+# 📦 Build the Project
+
+Run:
+
+```bash
+mvn clean install
+```
+
+If the build is successful, Maven will generate the compiled application.
+
+---
+
+# ▶️ Run the Application
+
+Run the main class:
+
+```text
+railway.main.RailwayReservationSystem
+```
+
+Or, if configured as a Maven application:
+
+```bash
 mvn exec:java
+```
 
-# OR build a runnable "fat jar" (MySQL driver bundled in)
-mvn clean package
-java -jar target/railway-reservation-system.jar
-Using an IDE (IntelliJ IDEA / Eclipse / VS Code)
-Open the railway-reservation-system folder as a Maven project — the IDE will detect pom.xml and download the MySQL connector automatically.
-Let Maven finish resolving dependencies.
-Run railway.main.RailwayReservationSystem (the class with the main method) directly from the IDE.
-Make sure MySQL is running and DBConnection points at it before running.
-VS Code specifically: install the "Extension Pack for Java" and the "Maven for Java" extension, open the folder, then right-click RailwayReservationSystem.java → Run Java.
+---
 
-6. Using the Application
-Main menu (not logged in)
-1. Register        - create a new account
-2. Login            - log in as a passenger
-3. Search Train      - search trains by source/destination (no login required)
-0. Exit
-(type 'admin' to open the admin login)
-Logged-in passenger menu
-1. Register
-2. Login
-3. Search Train
-4. Book Ticket
-5. View Ticket
-6. Cancel Ticket
-7. View My Bookings
-8. Logout
-9. Exit
-Admin panel (after admin login)
-1. Add Train
-2. Update Train
-3. Delete Train
-4. View All Trains
-5. View All Bookings
-6. View Users
-7. Booking Statistics
-8. Logout
-7. Example Console Session
-========================================
-     WELCOME TO RAILWAY RESERVATION
-========================================
+# 🖥️ Application Flow
 
-========================================
-       RAILWAY RESERVATION SYSTEM
-========================================
-1. Register
-2. Login
-3. Search Train
-0. Exit
-(type 'admin' to open the admin login)
-========================================
-Enter your choice: 1
+```text
+                    ┌──────────────┐
+                    │    START     │
+                    └──────┬───────┘
+                           │
+                           ▼
+                    ┌──────────────┐
+                    │ Login /      │
+                    │ Registration │
+                    └──────┬───────┘
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+             ▼                           ▼
+       ┌───────────┐              ┌───────────┐
+       │   USER    │              │   ADMIN   │
+       └─────┬─────┘              └─────┬─────┘
+             │                          │
+             ▼                          ▼
+      Search Trains              Manage Trains
+             │                   Manage Users
+             ▼                   Manage Bookings
+      Select Train
+             │
+             ▼
+      Enter Passenger
+          Details
+             │
+             ▼
+       Check Seats
+             │
+             ▼
+        Book Ticket
+             │
+             ▼
+       Generate PNR
+             │
+             ▼
+      View / Cancel
+         Booking
+```
 
---- Register New Account ---
-Username: arjun
-Email: arjun@example.com
-Password (min 6 chars): secret123
-Full Name: Arjun Kumar
-Phone (10 digits): 9876543210
-Registration successful! You can now login as 'arjun'.
+---
 
-Enter your choice: 2
+# 🧩 Architecture
 
---- Login ---
-Username or Email: arjun
-Password: secret123
-Login successful. Welcome, Arjun Kumar!
+The project follows a layered architecture.
 
-Logged in as: arjun
-...
-Enter your choice: 4
+### Model Layer
 
---- Book Ticket ---
-Train Number: 12001
-Journey Date (yyyy-MM-dd): 2026-09-15
-Number of passengers: 1
-Passenger 1:
-  Name: Arjun Kumar
-  Age: 29
-  Gender (M/F/O): M
-  Phone (10 digits): 9876543210
+Contains Java classes representing database entities.
 
-Booking confirmed!
-========================================
-PNR            : PNR2608084821
-Train          : 12001 - Shatabdi Express
-Route          : Chennai -> Bangalore
-Journey Date   : 2026-09-15
-Status         : CONFIRMED
-Total Fare     : Rs.750.00
-Booked On      : 2026-08-08T10:15:32
-Passengers     :
-   - Seat 1    Arjun Kumar          Age:29  Gender:M  Phone:9876543210
-========================================
-8. How the Core Logic Works
-Seat allocation
-Seats are tracked in the seats table on a (train, journey_date, seat_number) basis rather than being fixed per train forever — this lets the same physical train run (and be booked) on many different dates. The first time a train/date combination is searched or booked, TrainDAO.ensureSeatsExist lazily inserts one row per physical seat (1..total_seats), all initially unbooked. Because seat rows are only created on demand, dates nobody ever books never bloat the table.
+```text
+User
+Admin
+Train
+Passenger
+Booking
+Seat
+```
 
-PNR generation
-PNRGenerator builds a PNR as PNR + yyMMdd + a random 4-digit suffix (e.g. PNR2608084821). This keeps PNRs roughly time-sortable while making collisions unlikely. BookingService.generateUniquePnr still explicitly checks the database and regenerates on the rare collision, so uniqueness is guaranteed rather than assumed.
+### DAO Layer
 
-Booking (transactional)
-BookingService.bookTicket:
+Responsible for database operations.
 
-Validates all passenger fields and the journey date.
-Opens a JDBC transaction (autoCommit = false).
-Ensures the seat inventory for that train/date exists.
-Runs SELECT ... FOR UPDATE to lock and fetch the next N free seats — this prevents two simultaneous bookings from grabbing the same seat.
-If fewer seats are available than requested, it rolls back and reports how many are actually free.
-Otherwise it marks those seats booked, inserts the bookings row and one booking_passengers row per passenger, then commits everything together. If any step throws, the whole transaction rolls back and no partial booking is left behind.
-Cancellation (transactional)
-BookingService.cancelTicket:
+```text
+UserDAO
+TrainDAO
+BookingDAO
+PassengerDAO
+AdminDAO
+```
 
-Looks up the booking by PNR and rejects unknown PNRs.
-Rejects PNRs that are already CANCELLED (no double-cancellation).
-Inside a transaction: releases the booking's seats back to the pool (is_booked = FALSE) and flips the booking's status to CANCELLED.
-Returns the refund amount (in this simplified model, the full fare — a real system would apply slab-based cancellation charges).
-Security notes
-All SQL access goes through PreparedStatement — no string-concatenated queries anywhere — to prevent SQL injection.
-Passwords are stored as SHA-256 hashes (PasswordUtil), never in plain text. For a production system, a slow salted hash such as BCrypt or Argon2 should be used instead.
-9. Notes / Possible Extensions
-This is a console app per the assignment brief; the service layer is UI-agnostic, so a Swing, JavaFX, or Spring Boot REST front end could be layered on top later without touching dao/service code.
-Cancellation currently refunds the full fare; adding slab-based cancellation charges would only require a small change inside BookingService.cancelTicket.
+### Service Layer
+
+Contains application/business logic.
+
+```text
+UserService
+TrainService
+BookingService
+```
+
+### Utility Layer
+
+Contains reusable utilities.
+
+```text
+DBConnection
+PNRGenerator
+InputValidator
+PasswordUtil
+```
+
+### Main Layer
+
+Contains the application entry point:
+
+```text
+RailwayReservationSystem.java
+```
+
+---
+
+# 🧪 Example Booking
+
+```text
+---------------------------------------
+       RAILWAY RESERVATION
+---------------------------------------
+
+Passenger Name : Seenivasan
+Train          : Chennai Express
+From           : Chennai
+To             : Bengaluru
+Journey Date   : 15-08-2026
+Seat Number    : S24
+
+Booking Status : CONFIRMED
+PNR            : RLY826451
+
+---------------------------------------
+```
+
+---
+
+# 🔮 Future Enhancements
+
+The system can be extended with:
+
+* Spring Boot REST APIs
+* React/Angular frontend
+* Mobile application
+* Online payment integration
+* Email/SMS ticket confirmation
+* QR-code tickets
+* Live train tracking
+* Waitlist management
+* RAC support
+* Dynamic seat allocation
+* Automatic fare calculation
+* Multi-language support
+* Admin dashboard
+* JWT authentication
+* Cloud deployment
+
+---
+
+# 📈 Advantages
+
+* Easy ticket reservation
+* Reduced manual work
+* Centralized passenger information
+* Organized database management
+* Secure authentication
+* Automatic PNR generation
+* Modular architecture
+* Easy to maintain and extend
+* Suitable for academic and portfolio projects
+
+---
+
+# 👨‍💻 Project Type
+
+**Academic / Java Backend Project**
+
+### Domain
+
+**Railway Transportation & Reservation**
+
+### Architecture
+
+**Layered Architecture – Model + DAO + Service + Utility**
+
+### Database
+
+**MySQL**
+
+### Build Tool
+
+**Maven**
+
+---
+
+# 📄 License
+
+This project is developed for **educational and academic purposes**.
+
+You are free to modify and extend the project for learning and demonstration purposes.
+
+---
+
+## ⭐ If you find this project useful
+
+Consider giving the repository a ⭐ on GitHub.
